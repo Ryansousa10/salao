@@ -1,7 +1,26 @@
+<?php  
+
+use App\Sl;
+use App\Categoria;
+use App\Menu_Superior;
+use Illuminate\Http\Request;
+use App\Produto;
+  $sl = Sl::all(); 
+  $cat = Categoria::all();
+  $menu = Menu_Superior::all();
+  $prod = Produto::all(); 
+?> 
+
 <!DOCTYPE html>
+
+
 <html lang="pt-br">
 <head>
-	<title>Dona Rosa - Shop</title>
+	<title> 
+      @foreach($sl as $s)
+        {{$s->nome}}
+      @endforeach   
+    </title>
 	<meta charset="UTF-8">
 	<meta name="description" content="The Plaza eCommerce Template">
 	<meta name="keywords" content="plaza, eCommerce, creative, html">
@@ -16,10 +35,10 @@
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="{{asset('css/css/bootstrap.min.css')}}"/>
-	<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
-	<link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}"/>
-	<link rel="stylesheet" href="{{asset('css/style.css')}}"/>
-	<link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
+	<link rel="stylesheet" href="{{asset('css/css/font-awesome.min.css')}}"/>
+	<link rel="stylesheet" href="{{asset('css/css/owl.carousel.css')}}"/>
+	<link rel="stylesheet" href="{{asset('css/css/style.css')}}"/>
+	<link rel="stylesheet" href="{{asset('css/css/animate.css')}}"/>
 
 
 	<!--[if lt IE 9]>
@@ -51,11 +70,9 @@
 			<!-- site menu -->
 			<ul class="main-menu">
 				<li><a href="index.html">Home</a></li>
-				<li><a href="#">Shop</a></li>
-				<li><a href="#">Serviços</a></li>
-				<li><a href="#">Blog</a></li>
-				<li><a href="#">Sobre nós</a></li>
-				<li><a href="contact.html">Contato</a></li>
+				  @foreach($menu as $m)
+                <li><a href="/test_ryan">{{$m->item_nome}}</a></li>
+				  @endforeach         
 			</ul>
 		</div>
 	</header>
@@ -65,12 +82,12 @@
 	<!-- Page Info -->
 	<div class="page-info-section page-info-big">
 		<div class="container">
-			<h2>Categoria</h2>
+			<h2>Categorias</h2>
 			<div class="site-breadcrumb">
-				<a href="">Home</a> / 
+                <a href="">Home</a> <?php $i = 0; ?>@foreach($cat as $c)/ <?php $i++; if($i<=5){?><a href="/cat/{{$c->id}}">{{$c->nome}}</a><?php }else{?> <br/> / <a href="/cat/{{$c->id}}">{{$c->nome}} </a> / <?php } ?>@endforeach
 				<span>Shop</span>
 			</div>
-			<img src="img/categorie-page-top.png" alt="" class="cata-top-pic">
+			<img src="{{asset('css/img/categorie-page-top.png')}}" alt="" class="cata-top-pic">
 		</div>
 	</div>
 	
@@ -100,10 +117,11 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3">
+				@foreach($prod as $p)
+                <div class="col-lg-3">
 					<div class="product-item">
 						<figure>
-							<img src="img/products/1.jpg" alt="">
+							<img src="{{$p->url}}" alt="">
 							<div class="pi-meta">
 								<div class="pi-m-left">
 									<img src="img/icons/eye.png" alt="">
@@ -116,261 +134,14 @@
 							</div>
 						</figure>
 						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
+							<h6>{{$p->nome}}</h6>
+							<p>R${{number_format($p->preco,2,",",".")}}</p>
 							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/2.jpg" alt="">
-							<div class="bache">NOVO!</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/3.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/4.jpg" alt="">
-							<div class="bache sale">OFERTA!</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00<span>R̶$̶0̶0̶.̶0̶0̶</span></p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/5.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/6.jpg" alt="">
-							<div class="bache">NOVO!</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/7.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/8.jpg" alt="">
-                            <div class="bache sale">OFERTA!</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00<span>R̶$̶0̶0̶.̶0̶0̶</span></p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/9.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/10.jpg" alt="">
-							<div class="bache">NOVO!</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/11.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00</p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/12.jpg" alt="">
-                            <div class="bache sale">OFERTA!</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>Vista rápida</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>PRODUTO</h6>
-							<p>R$00.00<span>R̶$̶0̶0̶.̶0̶0̶</span></p>
-							<a href="#" class="site-btn btn-line">ADICIONAR AO CARRINHO</a>
-						</div>
-					</div>
-				</div>
-			</div>
+                @endforeach
+				
 			<div class="site-pagination">
 				<span class="active">01.</span>
 				<a href="">02.</a>
@@ -468,13 +239,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 	<!--====== Javascripts & Jquery ======-->
-    <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/jquery-3.2.1.min.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/owl.carousel.min.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/mixitup.min.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/sly.min.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/jquery.nicescroll.min.js')}}" type="text/javascript"></script>
-	<script src="{{ asset('js/main.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/app.js')}}" type="text/javascript"></script>
+	
+	
+	<script src="{{ asset('js/js/owl.carousel.min.js')}}" type="text/javascript"></script>
+	<script src="{{ asset('js/js/mixitup.min.js')}}" type="text/javascript"></script>
+	<script src="{{ asset('js/js/sly.min.js')}}" type="text/javascript"></script>
+	<script src="{{ asset('js/js/jquery.nicescroll.min.js')}}" type="text/javascript"></script>
+	<script src="{{ asset('js/js/main.js')}}" type="text/javascript"></script>
     </body>
 </html>
